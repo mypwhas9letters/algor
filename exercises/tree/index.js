@@ -18,11 +18,31 @@ class Node {
   add(data) {
     this.children.push(new Node(data));
   }
-  remove(){
-    this.children
+  remove(data){
+    this.children = this.children.filter(node => node.data != data)
   }
 }
 
-class Tree {}
+class Tree {
+  constructor(){
+    this.root = null
+  }
+  traverseBF(fn){
+    let tempArr = [this.root]
+    while(tempArr.length){
+      let node = tempArr.shift()
+      tempArr.push(...node.children)
+      fn(node)
+    }
+  }
+  traverseDF(fn){
+    let tempArr = [this.root]
+    while(tempArr.length){
+      let node = tempArr.shift()
+      tempArr.unshift(...node.children)
+      fn(node)
+    }
+  }
+}
 
 module.exports = { Tree, Node };
